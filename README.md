@@ -43,6 +43,6 @@ terraform "$cmd" \
   -var some_other_var="foo" \
 ```
 
-I can now setup my stg environment simply by running `./stg apply`.  I don't have
+I can now setup my staging environment simply by running `./stg apply`.  I don't have
 to type variables in each time either, and `terraform-setup` will keep all state
 in s3.  Nothing is saved or stored locally.
