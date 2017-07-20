@@ -1,0 +1,51 @@
+#!/bin/bash
+
+set -e
+
+if [[ -z "$bucket_prefix" ]]; then
+  echo "$0: You must export bucket_prefix first" && exit 1
+fi
+
+if [[ -z "$bucket_region" ]]; then
+  echo "$0: You must export bucket_region first" && exit 1
+fi
+
+cmd="$1"
+stack_name="`basename $PWD`"
+env="`basename $0`"
+
+if [[ "$env" == 'setup' ]]; then
+  echo "$0 is meant to be sourced"
+  exit 1
+fi
+
+if [[ -z "$cmd" ]]; then
+  cmd="plan"
+fi
+
+case "$cmd" in
+  apply|destroy|graph|plan|refresh);;
+  *) echo "$0: Unknown command $cmd" && exit 1;;
+esac
+
+if [[ -d ".terraform" ]]; then
+  rm -rf ".terraform"
+fi
+
+if [[ -f "terraform.tfstate" ]]; then
+  rm -f "terraform.tfstate"
+fi
+
+if [[ -f "terraform.tfstate.backup" ]]; then
+  rm -f "terraform.tfstate.backup"
+fi
+
+terraform init \
+  -backend=true \
+  -backend-config="bucket=${bucket_prefix}${env}" \
+  -backend-config="key=${stack_name}.tfstate" \
+  -backend-config="region=$bucket_region" \
+  -backend=true \
+  -force-copy \
+  -get=true \
+  -input=false
