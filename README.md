@@ -15,7 +15,13 @@ of sync with remote state.  This project put an end to that.
 ## Installing
 
 Place `terraform-setup` somewhere on your `PATH`.  Ensure `terraform` is on your
-`PATH` as well.
+`PATH` as well.  E.G.
+
+```sh
+cd "$HOME/bin"
+curl https://raw.githubusercontent.com/kogosoftwarellc/terraform-setup/master/terraform-setup > terraform-setup
+chmod +x terraform-setup
+```
 
 ## Usage
 
