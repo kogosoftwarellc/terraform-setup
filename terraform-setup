@@ -21,10 +21,12 @@ fi
 
 if [[ -z "$cmd" ]]; then
   cmd="plan"
+else
+  shift 1
 fi
 
 case "$cmd" in
-  apply|destroy|graph|plan|refresh)shift 1;;
+  apply|destroy|graph|plan|refresh);;
   *) echo "$0: Unknown command $cmd" && exit 1;;
 esac
 
