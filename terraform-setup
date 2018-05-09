@@ -24,7 +24,7 @@ if [[ -z "$cmd" ]]; then
 fi
 
 case "$cmd" in
-  apply|destroy|graph|plan|refresh);;
+  apply|destroy|graph|plan|refresh)shift 1;;
   *) echo "$0: Unknown command $cmd" && exit 1;;
 esac
 
