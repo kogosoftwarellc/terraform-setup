@@ -2,21 +2,21 @@
 
 set -e
 
+cmd="$1"
+stack_name="`basename $PWD`"
+env="`basename $0`"
+
+if [[ "$env" == 'terraform-setup' ]]; then
+  echo "$0 is meant to be sourced"
+  exit 1
+fi
+
 if [[ -z "$bucket_prefix" ]]; then
   echo "$0: You must export bucket_prefix first" && exit 1
 fi
 
 if [[ -z "$bucket_region" ]]; then
   echo "$0: You must export bucket_region first" && exit 1
-fi
-
-cmd="$1"
-stack_name="`basename $PWD`"
-env="`basename $0`"
-
-if [[ "$env" == 'setup' ]]; then
-  echo "$0 is meant to be sourced"
-  exit 1
 fi
 
 if [[ -z "$cmd" ]]; then
